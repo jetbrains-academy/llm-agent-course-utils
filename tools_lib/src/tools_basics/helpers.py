@@ -3,14 +3,15 @@ import os
 from omegaconf import OmegaConf
 from typing import Iterable
 
-def get_config(path: str) -> OmegaConf:
+def get_config(path: str, root: str | None = None) -> OmegaConf:
     """Get the configuration from the YAML file.
     Set `root_dir` to the directory of the config file.
-    
-    Note: The function expects the conf.yaml file to be in the root of the project."""
+
+    :@param path: Path to configuration file (conf.yaml).
+    :@param root: Root directory of the project. If None, it will be set to the directory of the config file.
+    """
     conf_raw = OmegaConf.load(path)
-    root_dir = os.path.dirname(path)
-    conf_raw.root_dir = os.path.abspath(root_dir)
+    conf_raw.root_dir = root or os.path.abspath(os.path.dirname(path))
     conf = OmegaConf.create(OmegaConf.to_yaml(conf_raw, resolve=True))
     return conf
 
