@@ -3,9 +3,7 @@ import os
 from omegaconf import OmegaConf
 from typing import Iterable
 
-
-DEFAULT_CONF_PATH = os.path.join(os.path.dirname(__file__), "../" * 3, "conf.yaml")
-def get_config(path: str = DEFAULT_CONF_PATH) -> OmegaConf:
+def get_config(path: str) -> OmegaConf:
     """Get the configuration from the YAML file.
     Set `root_dir` to the directory of the config file.
     

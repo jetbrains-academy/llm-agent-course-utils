@@ -1,0 +1,27 @@
+root: /Users/Rodion.Khvorostov/Desktop/Prog/Work/llm_course/auto_tmp
+
+template: ${root}/reimagined/templates/add_test_messages.md
+
+api:
+  type: openai
+  key: ${oc.env:OPENAI_API_KEY}
+  model: gpt-3.5-turbo
+
+  extractor:
+    name: PythonCodeExtractor
+    take_only: 0
+
+repo: ${root}/../01_basics
+inp:
+  - extractor:
+      name: ClassExtractor
+      take_only: 0
+    file: ${repo}/task09_clf_logreg_with_embs/task.py
+    name: context
+  - extractor:
+      name: null
+      take_only: null
+    file: ${repo}/task09_clf_logreg_with_embs/tests/actual_test.py
+    name: tests_before
+out:
+  file: ${repo}/task09_clf_logreg_with_embs/tests/actual_test.py
