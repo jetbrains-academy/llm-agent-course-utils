@@ -12,7 +12,7 @@ A diverse collection of self-written Python libraries
 
 **Tools basics**:
 ```bash
-python -m pip install "tools_basics @ git+https://github.com/RodionfromHSE/python_libs.git#subdirectory=tools_lib"
+python -m pip install -e "git+https://github.com/RodionfromHSE/python_libs.git#subdirectory=tools_basics&egg=tools_basics"
 ```
 Note: I haven't managed to install the library in editable mode. For more information, see [pip documentation](https://pip.pypa.io/en/stable/topics/vcs-support/).
 
