@@ -25,6 +25,10 @@ class BaseExtractor(ABC):
         elif self.concatenation_type == "last":
             return elements[-1]
 
+class DefaultExtractor(BaseExtractor):
+    """Extract the entire text."""
+    def extract_elements(self, text: str) -> list[str]:
+        return [text]
 
 class ClassExtractor(BaseExtractor):
     """Extract classes from python code."""
