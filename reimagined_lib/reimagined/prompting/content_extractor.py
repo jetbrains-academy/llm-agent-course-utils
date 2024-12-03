@@ -7,15 +7,28 @@ import re
 
 
 class BaseExtractor(ABC):
+    def __init__(self, concatenation_type: str = "join"):
+        assert concatenation_type in ["join", "first", "last"], "Invalid concatenation type. Must be one of 'join', 'first', 'last'."
+        self.concatenation_type = concatenation_type
+
     @abstractmethod
-    def extract(self, text: str) -> list[str]:
+    def extract_elements(self, text: str) -> list[str]:
         """Extract the content from the text."""
         pass
+
+    def extract(self, text: str) -> str:
+        elements = self.extract_elements(text)
+        if self.concatenation_type == "join":
+            return "\n\n".join(elements)
+        elif self.concatenation_type == "first":
+            return elements[0]
+        elif self.concatenation_type == "last":
+            return elements[-1]
 
 
 class ClassExtractor(BaseExtractor):
     """Extract classes from python code."""
-    def extract(self, text: str) -> list[str]:
+    def extract_elements(self, text: str) -> list[str]:
         tree = ast.parse(text)
         lines = text.splitlines()
 
@@ -37,7 +50,7 @@ class BetweenTokensExtractor(BaseExtractor, ABC):
     def end_token(self) -> str:
         pass
 
-    def extract(self, text: str) -> list[str]:
+    def extract_elements(self, text: str) -> list[str]:
         pattern = re.compile(
             rf"{re.escape(self.begin_token)}(.*?){re.escape(self.end_token)}",
             re.DOTALL
