@@ -1,15 +1,11 @@
-root: /Users/Rodion.Khvorostov/Desktop/Prog/Work/llm_course/materials
+root: /Users/Rodion.Khvorostov/Desktop/Prog/Work/python_libs/reimagined_lib
 
-template: ${root}/reimagined/templates/test_gen.md
+template: test_gen
 
 api:
   type: openai
   key: ${oc.env:OPENAI_API_KEY}
   model: gpt-3.5-turbo
-
-  extractor:
-    name: PythonCodeExtractor
-    take_only: 0
 
 repo: ${root}/data
 inp:
@@ -17,7 +13,11 @@ inp:
     name: code
     extractor:
       name: ClassExtractor
-      take_only: 0
+      mode: join
 
 out:
   file: ${repo}/test.py
+  extractor:
+    name: PythonCodeExtractor
+    mode: last
+

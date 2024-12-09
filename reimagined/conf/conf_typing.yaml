@@ -1,23 +1,22 @@
-root: /Users/Rodion.Khvorostov/Desktop/Prog/Work/llm_course/auto_generator
+root: /Users/Rodion.Khvorostov/Desktop/Prog/Work/llm_course/LanguageModeling/
 
-template: ${root}/reimagined/templates/add_typing_and_docs.md
+template: add_typing_and_docs
 
 api:
   type: openai
   key: ${oc.env:OPENAI_API_KEY}
   model: gpt-3.5-turbo
 
-  extractor:
-    name: PythonCodeExtractor
-    take_only: 0
 
-repo: ${root}/data
+repo: ${root}
 inp:
-  - file: ${repo}/types.py
+  - file: ${repo}/task01_ngrams/task.py
     name: code
     extractor:
-      name: null
-      take_only: null
+      name: DefaultExtractor
 
 out:
-  file: ${repo}/types_test.py
+  file: ${repo}/task01_ngrams/task.py
+  extractor:
+    name: PythonCodeExtractor
+    mode: last

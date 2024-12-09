@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import Type
 import ast
 import inspect
 import sys
@@ -7,7 +8,9 @@ import re
 
 
 class BaseExtractor(ABC):
-    def __init__(self, concatenation_type: str = "join"):
+    def __init__(self, concatenation_type: str | None = None):
+        """Initialize the extractor."""
+        concatenation_type = concatenation_type or "join"
         assert concatenation_type in ["join", "first", "last"], "Invalid concatenation type. Must be one of 'join', 'first', 'last'."
         self.concatenation_type = concatenation_type
 
@@ -88,10 +91,10 @@ def __get_classes() -> list[tuple[str, type]]:
     return [(name, cls) for name, cls in classes if cls.__module__ == __name__]
 
 
-def get_extractor_by_name(name: str) -> BaseExtractor:
+def get_extractor_class_by_name(name: str) -> Type[BaseExtractor]:
     """Get the extractor by name."""
     classes = __get_classes()
     for class_name, cls in classes:
         if class_name.lower() == name.lower():
-            return cls()
+            return cls
     raise ValueError(f"Extractor with name {name} not found.")
