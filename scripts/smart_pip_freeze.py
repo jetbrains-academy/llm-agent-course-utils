@@ -68,18 +68,21 @@ def get_loosened_constraint(constraint: str) -> str:
     if not constraint.startswith("=="):
         return constraint
     
-    version = constraint[2:]
-
-    if version.count(".") == 3:  # e.g. ==1.2.3.3
-        major, minor, patch, _ = version.split(".")
-        loosened_constraint = f">={major}.{minor}.{patch},<{int(major) + 1}.0"
-    elif version.count(".") == 2:
-        major, minor, _patch = version.split(".")
-        loosened_constraint = f">={major}.{minor}.0,<{int(major) + 1}.0"
-    elif version.count(".") == 1:  # e.g. ==1.2
-        major, minor = version.split(".")
-        loosened_constraint = f">={major}.{minor}.0,<{int(major) + 1}.0.0"
+    # replace == with ~=
+    loosened_constraint = constraint.replace("==", "~=", 1)
     return loosened_constraint
+    # version = constraint[2:]
+
+    # if version.count(".") == 3:  # e.g. ==1.2.3.3
+    #     major, minor, patch, _ = version.split(".")
+    #     loosened_constraint = f">={major}.{minor}.{patch},<{int(major) + 1}.0"
+    # elif version.count(".") == 2:
+    #     major, minor, _patch = version.split(".")
+    #     loosened_constraint = f">={major}.{minor}.0,<{int(major) + 1}.0"
+    # elif version.count(".") == 1:  # e.g. ==1.2
+    #     major, minor = version.split(".")
+    #     loosened_constraint = f">={major}.{minor}.0,<{int(major) + 1}.0.0"
+    # return loosened_constraint
 
 def convert_to_loosened_constraint(packages: List[dict[str, str]]) -> List[dict[str, str]]:
     """
