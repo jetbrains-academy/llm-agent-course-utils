@@ -125,10 +125,9 @@ def merge_requirements(existing: List[dict[str, str]], new: List[dict[str, str]]
     Merge existing and new requirements.
     In case of the same packages, keep the existing version constraint.
     """
-    existing_dict = {package["name"]: package["constraint"] for package in existing}
-    new_dict = {package["name"]: package["constraint"] for package in new}
-    new_dict.update(existing_dict)
-    return [{"name": name, "constraint": constraint} for name, constraint in new_dict.items()]
+    existing_names = {package["name"] for package in existing}
+    new_filtered = [package for package in new if package["name"] not in existing_names]
+    return existing + new_filtered
 
 def save_requirements(file_path: str, requirements: List[dict[str, str]]) -> None:
     """
