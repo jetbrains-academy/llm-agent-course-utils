@@ -9,11 +9,8 @@ description = "A set of tools for lesson 01_basics"
 authors = [
     { name = "Rodion Khvorostov", email = "rodion.khvorostov@jetbrains.com" }
 ]
-
+readme = "README.md"  # Add this if you have a README file
 dependencies = []
-readme = "README.md"
-# Add other metadata fields as necessary, such as keywords or classifiers.
 
-[tool.setuptools]
-packages = ["find:"]
-package-dir = {"" = "src"}
+[tool.setuptools.packages.find]
+where = ["src"]
