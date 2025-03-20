@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="tools_basics",  # The package name users will use to install
+    name="tools-basics",  # The package name users will use to install
     version="0.1.0",
     packages=find_packages(where="src"),  # Look for packages in the "src" folder
     package_dir={"": "src"},  # Map root of the package to "src"
