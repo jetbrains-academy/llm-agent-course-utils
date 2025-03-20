@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tools-basics"
+version = "0.1.0"
+description = "A set of tools for lesson 01_basics"
+authors = [
+    { name = "Rodion Khvorostov", email = "rodion.khvorostov@jetbrains.com" }
+]
+
+dependencies = []
+readme = "README.md"
+# Add other metadata fields as necessary, such as keywords or classifiers.
+
+[tool.setuptools]
+packages = ["find:"]
+package-dir = {"" = "src"}
